@@ -18,6 +18,7 @@ try:
         f"DATABASE={os.getenv('DB_NAME')};"
         f"UID={os.getenv('DB_USER')};"
         f"PWD={os.getenv('DB_PASS')}"
+         f"TrustServerCertificate=yes;"
     )
     print("✅ Connected to SQL Server successfully!")
 except Exception as e:

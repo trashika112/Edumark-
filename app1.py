@@ -17,6 +17,8 @@ try:
         f"DATABASE={os.getenv('DB_NAME')};"
         f"UID={os.getenv('DB_USER')};"
         f"PWD={os.getenv('DB_PASS')}"
+          f"TrustServerCertificate=yes;"
+
     )
     print("✅ Connected to SQL Server successfully!")
 except Exception as e:
@@ -87,5 +89,6 @@ def get_students():
         return jsonify({"error": str(e)}), 500
 
 # ✅ Run the app
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000, debug=True)
