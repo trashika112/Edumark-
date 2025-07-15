@@ -1,12 +1,13 @@
 from flask import Flask, jsonify
+from flask_cors import CORS   # ✅ NEW LINE
 import pyodbc
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)   # ✅ ENABLE CORS for all routes
 
 # SQL Server connection setup
 try:
@@ -22,7 +23,7 @@ except Exception as e:
     print("❌ Failed to connect to SQL Server:")
     print(e)
 
-# ✅ Home route
+# Routes...
 @app.route("/")
 def home():
     return """
@@ -33,19 +34,17 @@ def home():
     </ul>
     """
 
-# ✅ Get all students (sample API)
 @app.route("/api/students", methods=["GET"])
 def get_students():
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Students")  # Change table name if needed
+        cursor.execute("SELECT * FROM Students")
         columns = [column[0] for column in cursor.description]
         data = [dict(zip(columns, row)) for row in cursor.fetchall()]
         return jsonify(data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# ✅ Run the Flask app
+# Run Flask
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000, debug=True)
-
