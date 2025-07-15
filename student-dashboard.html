@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard - EduMark</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Welcome, Student!</h2>
+
+    <label for="subject">View Subject:</label>
+    <select id="subject">
+      <option>Data Analytics</option>
+      <option>Machine Learning</option>
+    </select>
+
+    <label for="marks">Your Marks:</label>
+    <input type="text" id="marks" placeholder="--/100" disabled />
+
+    <div class="button-group">
+      <button onclick="goBack()">Back</button>
+    </div>
+
+    <button style="width: 100%; margin-top: 15px;" onclick="logout()">Logout</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

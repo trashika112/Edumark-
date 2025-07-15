@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teacher Dashboard - EduMark</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Welcome, Teacher!</h2>
+
+    <label for="department">Select Department:</label>
+    <select id="department">
+      <option>Information Science & Engineering</option>
+      <option>Computer Science</option>
+    </select>
+
+    <label for="section">Select Section:</label>
+    <select id="section">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+
+    <label for="usn">Select USN:</label>
+    <select id="usn">
+      <option>IS1001</option>
+      <option>IS1002</option>
+    </select>
+
+    <label for="subject">Select Subject:</label>
+    <select id="subject">
+      <option>Data Analytics</option>
+      <option>Machine Learning</option>
+    </select>
+
+    <div class="button-group">
+      <button onclick="updateMarks()">Update Marks</button>
+      <button onclick="goBack()">Back</button>
+    </div>
+
+    <button style="width: 100%; margin-top: 15px;" onclick="logout()">Logout</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
