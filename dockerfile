@@ -1,22 +1,29 @@
 FROM python:3.11-slim
 
-# Install system packages
-RUN apt-get update && apt-get install -y curl gnupg2 unixodbc-dev gcc g++ \
+# Install system packages and prerequisites
+RUN apt-get update && apt-get install -y \
+    curl gnupg2 unixodbc-dev gcc g++ apt-transport-https ca-certificates \
     && apt-get clean
 
-# Add Microsoft SQL Server ODBC Driver 18
+# Add Microsoft package repository
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-    && apt-get update \
-    && ACCEPT_EULA=Y apt-get install -y msodbcsql18
+ && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install ODBC Driver 18
+RUN apt-get update \
+ && ACCEPT_EULA=Y apt-get install -y msodbcsql18
 
-# Copy the app
+# Set working directory
+WORKDIR /app
+
+# Copy application code
 COPY . .
 
-# Expose port and run
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose your Flask port
 EXPOSE 10000
+
+# Start the Flask app
 CMD ["python", "app.py"]
